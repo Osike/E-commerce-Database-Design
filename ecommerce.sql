@@ -83,14 +83,6 @@ INSERT INTO size_category (name) VALUES
 ('Shoe Sizes'),
 ('Device Sizes');
 
--- Size Option Table
-CREATE TABLE size_option (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    size_value VARCHAR(50) NOT NULL,
-    size_category_id INT NOT NULL,
-    FOREIGN KEY (size_category_id) REFERENCES size_category(id)
-);
-
 -- Sample Data for Product Table
 INSERT INTO product (name, base_price, brand_id, category_id) VALUES 
 ('Air Max 97', 120.00, 1, 1),  -- Nike Shoes
