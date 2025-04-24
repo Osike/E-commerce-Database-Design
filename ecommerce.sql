@@ -90,25 +90,26 @@ INSERT INTO product (name, base_price, brand_id, category_id) VALUES
 ('Galaxy S21', 799.00, 3, 2),  -- Samsung Electronics
 ('Adidas T-Shirt', 29.99, 4, 3);  -- Adidas Clothing
 
--- attribute type 
-CREATE TABLE attribute_type (
-    attribute_type_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    attribut_category_id INT,
-    FOREIGN KEY (attribut_category_id) REFERENCES attribute_category(category_id)
 );
 -- Attribute Category Table
 CREATE TABLE attribute_category (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL
 );
+
+-- attribute type 
+CREATE TABLE attribute_type (
+    attribute_type_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    attribut_category_id INT,
+    FOREIGN KEY (attribut_category_id) REFERENCES attribute_category(category_id)
+
 -- product attribute table
 CREATE TABLE product_attribute (
     product_attribute_id INT PRIMARY KEY AUTO_INCREMENT,
     value VARCHAR(255) NOT NULL,
     product_id INT,
     attribute_type_id INT,
-    value VARCHAR(255) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES product(product_id),
     FOREIGN KEY (attribute_type_id) REFERENCES attribute_type(attribute_type_id)
 );
