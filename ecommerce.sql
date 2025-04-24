@@ -91,49 +91,39 @@ CREATE TABLE size_option (
     FOREIGN KEY (size_category_id) REFERENCES size_category(id)
 );
 
--- Sample Data for Size Option Table
-INSERT INTO size_option (size_value, size_category_id) VALUES
-('S', 1),
-('M', 1),
-('L', 1),
-('42', 2),
-('44', 2),
-('13-inch', 3),
-('15-inch', 3);
+-- Sample Data for Product Table
+INSERT INTO product (name, base_price, brand_id, category_id) VALUES 
+('Air Max 97', 120.00, 1, 1),  -- Nike Shoes
+('iPhone 14 Pro', 999.00, 2, 2),  -- Apple Electronics
+('Galaxy S21', 799.00, 3, 2),  -- Samsung Electronics
+('Adidas T-Shirt', 29.99, 4, 3);  -- Adidas Clothing
 
--- Product Variation Table
-CREATE TABLE product_variation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    variation_name VARCHAR(100) NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES product(product_id)
+-- attribute type 
+CREATE TABLE attribute_type (
+    attribute_type_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    attribut_category_id INT,
+    FOREIGN KEY (attribut_category_id) REFERENCES attribute_category(category_id)
 );
-
--- Sample Data for Product Variation Table
-INSERT INTO product_variation (product_id, variation_name) VALUES
-(1, 'Color'),
-(1, 'Size'),
-(2, 'Storage Capacity'),
-(3, 'Color');
-
--- Product Item Table
-CREATE TABLE product_item (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    color_id INT NOT NULL,
-    size_option_id INT NOT NULL,
+-- Attribute Category Table
+CREATE TABLE attribute_category (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+-- product attribute table
+CREATE TABLE product_attribute (
+    product_attribute_id INT PRIMARY KEY AUTO_INCREMENT,
+    value VARCHAR(255) NOT NULL,
+    product_id INT,
+    attribute_type_id INT,
+    value VARCHAR(255) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES product(product_id),
-    FOREIGN KEY (color_id) REFERENCES color(color_id),
-    FOREIGN KEY (size_option_id) REFERENCES size_option(id)
+    FOREIGN KEY (attribute_type_id) REFERENCES attribute_type(attribute_type_id)
 );
-
--- Sample Data for Product Item Table
-INSERT INTO product_item (product_id, color_id, size_option_id) VALUES
-(1, 1, 1),
-(1, 1, 2),
-(1, 2, 2),
-(1, 2, 3),
-(2, 1, 4),
-(2, 1, 5),
-(3, 2, 6),
-(3, 2, 7);
+-- size_options table
+CREATE TABLE size_option (
+    size_option_id INT PRIMARY KEY AUTO_INCREMENT,
+    size_value VARCHAR(50) NOT NULL,
+    size_category_id INT,
+    FOREIGN KEY (size_category_id) REFERENCES attribute_category(category_id)
+);
